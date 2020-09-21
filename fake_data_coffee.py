@@ -43,16 +43,18 @@ fake_box['created_at'] =random_datetimes_or_dates(start='2020-01-01 00:00', end=
 # using a list comprehension:
 fake_box['item_base_price'] = [18 if (row == 'ardi' or row == 'yirgz') else 15 for row in fake_box.item_name]
 
-print(fake_box)
+
 
 #add random 'quantity'
 
+fake_box['quantity'] = np.random.randint(1,3, 15)
 
-# #transfer to sqlite
-# engine = create_engine('sqlite:///save_pandas.db', echo=True)
-# sqlite_connection = engine.connect()
-# sqlite_table = "fake_box_sales"
-# fake_box.to_sql(sqlite_table, sqlite_connection, if_exists='replace')
+print(fake_box)
+#transfer to sqlite
+engine = create_engine('sqlite:///save_pandas.db', echo=True)
+sqlite_connection = engine.connect()
+sqlite_table = "fake_box_sales"
+fake_box.to_sql(sqlite_table, sqlite_connection, if_exists='replace')
 
-# sqlite_connection.close()
+sqlite_connection.close()
 
