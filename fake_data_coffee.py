@@ -4,8 +4,9 @@ from sqlalchemy import create_engine
 
 
 #create random date function
+num_of_entries = 200
 
-def random_datetimes_or_dates(start='2020-01-01 00:00', end='2020-03-01 00:00', out_format='datetime', n=10):
+def random_datetimes_or_dates(start='2020-01-01 00:00', end='2020-03-01 00:00', out_format='datetime', n=num_of_entries):
     #set start and end to work from a string:
     fixed_start = pd.to_datetime(start)
     fixed_end = pd.to_datetime(end)
@@ -32,11 +33,11 @@ def item_name_randomizer(size, p=None):
 fake_box = pd.DataFrame()
 
 #create first column with coffee box func
-fake_box['item_name'] = item_name_randomizer(15, p=None)
+fake_box['item_name'] = item_name_randomizer(num_of_entries, p=None)
 
 #create second column with dates
 # fake_box['created_at'] = random_datetimes_or_dates(start, end, out_format='datetime', n=5)
-fake_box['created_at'] =random_datetimes_or_dates(start='2020-01-01 00:00', end='2020-03-01 00:00', out_format='datetime', n=15)
+fake_box['created_at'] =random_datetimes_or_dates(start='2020-01-01 00:00', end='2020-03-01 00:00', out_format='datetime', n=num_of_entries)
 
 
 # #add prices to each coffee item_base_price
@@ -44,17 +45,16 @@ fake_box['created_at'] =random_datetimes_or_dates(start='2020-01-01 00:00', end=
 fake_box['item_base_price'] = [18 if (row == 'ardi' or row == 'yirgz') else 15 for row in fake_box.item_name]
 
 
-
 #add random 'quantity'
 
-fake_box['quantity'] = np.random.randint(1,3, 15)
+fake_box['quantity'] = np.random.randint(1,3, num_of_entries)
 
 print(fake_box)
-#transfer to sqlite
-engine = create_engine('sqlite:///save_pandas.db', echo=True)
-sqlite_connection = engine.connect()
-sqlite_table = "fake_box_sales"
-fake_box.to_sql(sqlite_table, sqlite_connection, if_exists='replace')
+# #transfer to sqlite
+# engine = create_engine('sqlite:///save_pandas.db', echo=True)
+# sqlite_connection = engine.connect()
+# sqlite_table = "fake_box_sales"
+# fake_box.to_sql(sqlite_table, sqlite_connection, if_exists='replace')
 
-sqlite_connection.close()
+# sqlite_connection.close()
 
