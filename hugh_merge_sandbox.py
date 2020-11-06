@@ -3,10 +3,14 @@ import numpy as np
 from dateutil.parser import parse
 import datetime
 
-sand = pd.read_csv('frogtown_sample_three_hundo.csv',parse_dates=['created_at']) 
+sand = pd.read_csv('workshop_box_sales_datagrip_export.csv',parse_dates=['created_at']) 
 otb = pd.read_csv('Workshop Cafe Beverage - Workshop Cafe Beverage.csv')
 
+print(sand.head())
+####
+print(sand.columns)
 
+##don't need to clean column names anymore
 #clean future column names columns
 otb.iloc[0] = otb.iloc[0].str.strip().str.lower().str.replace(' ', '_').str.replace('(', '').str.replace(')', '')
 
@@ -53,18 +57,3 @@ otbsand = pd.merge_asof(
 
 print(otbsand[['variant_name','created_at','year', 'month', 'month/year', 'batch_brew']])
 print(otbsand.columns)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
