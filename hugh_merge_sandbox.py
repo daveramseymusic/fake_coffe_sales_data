@@ -54,6 +54,4 @@ otbsand = pd.merge_asof(
 #select which columns from otbsand to compare to check that your merge_asof worked properly using code below
 # print(df2[['col1', 'col2', 'col3']].head(10))
 
-
-print(otbsand[['variant_name','created_at','year', 'month', 'month/year', 'batch_brew']])
-print(otbsand.columns)
+otbsand.to_csv('workshop_box_sales_with_otb_added.csv')
